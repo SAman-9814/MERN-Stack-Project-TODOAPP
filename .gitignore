@@ -3,9 +3,11 @@ node_modules/
 client/node_modules/
 server/node_modules/
 
-# Production build outputs
+# Production build outputs and dev cache
 client/dist/
 dist/
+.vite/
+client/.vite/
 
 # Secret files containing API keys, database credentials, etc.
 .env
