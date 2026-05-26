@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply transition-colors duration-500 min-h-screen font-sans bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100;
+  }
+}
+
+/* Custom Background Gradients */
+.bg-gradient-spheres {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sphere {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sphere-1 {
+  @apply bg-blue-400/20 dark:bg-blue-600/10 w-[25rem] h-[25rem] sm:w-[35rem] sm:h-[35rem] -top-20 -left-20;
+}
+
+.sphere-2 {
+  @apply bg-purple-400/20 dark:bg-purple-600/5 w-[30rem] h-[30rem] sm:w-[40rem] sm:h-[40rem] top-[30%] -right-20;
+}
+
+.sphere-3 {
+  @apply bg-emerald-400/15 dark:bg-emerald-600/5 w-[20rem] h-[20rem] sm:w-[30rem] sm:h-[30rem] -bottom-20 left-[20%];
+}
+
+/* Staggered Card Entry Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Stagger delays for first 12 cards */
+.delay-1 { animation-delay: 50ms; }
+.delay-2 { animation-delay: 100ms; }
+.delay-3 { animation-delay: 150ms; }
+.delay-4 { animation-delay: 200ms; }
+.delay-5 { animation-delay: 250ms; }
+.delay-6 { animation-delay: 300ms; }
+.delay-7 { animation-delay: 350ms; }
+.delay-8 { animation-delay: 400ms; }
+.delay-9 { animation-delay: 450ms; }
+.delay-10 { animation-delay: 500ms; }
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100 dark:bg-slate-950;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-800 rounded-full hover:bg-slate-400 dark:hover:bg-slate-700 transition-colors;
+}
+
+/* Custom CSS lines through transitions */
+.strike-through-transition {
+  position: relative;
+}
+
+.strike-through-transition::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 2px;
+  @apply bg-slate-400 dark:bg-slate-600;
+  transition: width 0.3s ease-in-out;
+}
+
+.strike-through-transition.active::after {
+  width: 100%;
+}
+
+/* Cursor Glow Card Effect */
+.cursor-glow-card {
+  position: relative;
+}
+
+.cursor-glow-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px; /* Extend slightly to cover borders */
+  border-radius: inherit;
+  padding: 1.5px; /* Border thickness */
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(59, 130, 246, 0.35),
+    rgba(168, 85, 247, 0.25) 30%,
+    transparent 60%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cursor-glow-card:hover::before {
+  opacity: 1;
+}
+
+.dark .cursor-glow-card::before {
+  background: radial-gradient(
+    350px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(59, 130, 246, 0.25),
+    rgba(139, 92, 246, 0.15) 35%,
+    transparent 70%
+  );
+}
+
+/* Toast Timer Shrink animation */
+@keyframes shrinkWidth {
+  0% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+

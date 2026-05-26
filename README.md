@@ -1,183 +1,109 @@
-# 📝 Backend Todo App
+# AetherFlow Workspace
 
-A RESTful Todo App backend built with **Node.js**, **Express v5**, and **MongoDB (Mongoose)**. Supports full CRUD operations — create, read, update, and delete todo items via a clean REST API.
-
----
-
-## 🛠️ Tech Stack
-
-| Technology | Purpose |
-|------------|---------|
-| Node.js | Runtime environment |
-| Express v5 | Web framework |
-| MongoDB | Database |
-| Mongoose | MongoDB ODM |
-| dotenv | Environment variable management |
-| nodemon | Auto-restart in development |
+AetherFlow is a premium, full-stack task management dashboard designed to streamline developer workflows. Powered by React, Tailwind CSS, Express, and MongoDB, it features fluid animations, custom card shaders, side drawers, priority tracking, due dates, tags, a Kanban Board, and dark/light theme persistency.
 
 ---
 
-## ✅ Prerequisites
+## ✨ Features
 
-Make sure you have the following installed before running this project:
-
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- [MongoDB](https://www.mongodb.com/) (local instance or [MongoDB Atlas](https://www.mongodb.com/atlas) cloud URI)
-- npm (comes with Node.js)
+- **Unique Branding & Aesthetics**: Clean typography, glassmorphism headers, and floating ambient background glow spheres that shift colors depending on the active theme.
+- **Double View Layout Mode (Grid / Kanban)**: Toggle layouts on-the-fly between a grid of responsive cards and a Kanban lanes column board (split into Pending and Completed).
+- **Cursor-Following Glow Borders**: Advanced hover outline effects on task cards that track your cursor coordinates in real-time.
+- **Slide-Over Sidebar Drawer**: Redesigned creation/editing panel sliding from the right edge with custom priority buttons (Low, Medium, High), due date timelines, and toggleable tags (`Code`, `Design`, `Planning`, `Personal`, `Finance`).
+- **Custom Toast Notifications**: Fluid popup alerts with shrinking timer progress bars indicating auto-close times.
+- **Persistent Theme Toggling**: Seamless transition between Light and Dark mode options stored in `localStorage`.
 
 ---
 
-## 🚀 Getting Started
+## 📂 Project Structure
 
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/SAman-9814/Backend-Project-TODOAPP.git
-cd Backend-Project-TODOAPP
+```text
+TODOAPP/
+├── client/              # Frontend React client (Vite + Tailwind)
+│   ├── src/
+│   │   ├── components/  # Toast, TodoCard, TodoForm Drawer
+│   │   ├── App.jsx      # Dashboard core logic
+│   │   └── index.css    # Ambient light, stagger, and mask styles
+│   ├── package.json
+│   └── tailwind.config.js
+├── server/              # Backend REST API server (Node + Express)
+│   ├── config/          # MongoDB database connections
+│   ├── controllers/     # CRUD routing handlers (Create, Read, Update, Delete)
+│   ├── models/          # Mongoose Todo task schema
+│   ├── routes/          # Express API route bindings
+│   ├── index.js         # Express main entry point
+│   ├── .env             # Port and Database environment configs
+│   └── package.json
+├── .gitignore           # Git ignore definitions (protecting secrets and modules)
+└── README.md            # Project documentation
 ```
 
-### 2. Install dependencies
+---
 
-```bash
+## ⚙️ Requirements & Configuration
+
+Ensure you have [Node.js](https://nodejs.org/) installed and a local [MongoDB](https://www.mongodb.com/) instance active.
+
+Configure the environment variables inside `server/.env`:
+```env
+PORT = 3000
+DATABASE_URL = mongodb://127.0.0.1:27017/amanDataBase
+```
+
+---
+
+## 🚀 Running the Workspace
+
+### 1. Start the Backend API Server
+In a terminal, navigate to the server directory, install dependencies, and start Node:
+```powershell
+cd server
 npm install
-```
-
-### 3. Set up environment variables
-
-Create a `.env` file in the root of the project by copying the example:
-
-```bash
-cp .env.example .env
-```
-
-Then fill in your values (see [Environment Variables](#-environment-variables) below).
-
-### 4. Run the app
-
-**Development mode** (with auto-restart via nodemon):
-```bash
 npm run dev
 ```
+*The server will start listening at `http://localhost:3000` and confirm its connection to MongoDB.*
 
-**Production mode:**
+### 2. Start the Frontend Client
+In a separate terminal, navigate to the client directory, install dependencies, and start Vite:
+```powershell
+cd client
+npm install
+npm run dev
+```
+*The React client will launch at `http://localhost:5173`.*
+
+---
+
+## 🛡️ API Endpoints
+
+The server exposes the following endpoints prefixed with `/api/v1`:
+
+- **POST** `/createTodo` - Creates a new task.
+  ```json
+  {
+    "title": "Build API",
+    "description": "Design endpoints",
+    "priority": "high",
+    "dueDate": "2026-05-30T00:00:00.000Z",
+    "tags": ["Code"]
+  }
+  ```
+- **GET** `/getTodos` - Fetches all tasks.
+- **GET** `/getTodos/:id` - Fetches a single task by ID.
+- **PUT** `/updateTodos/:id` - Updates task properties and toggle completed states.
+- **DELETE** `/deleteTodos/:id` - Removes a task from the database.
+
+---
+
+## 🧪 Production Build
+
+To compile the React workspace for production deployment, run inside `client/`:
 ```bash
-npm start
+npm run build
 ```
-
-The server will start at `http://localhost:3000` (or whichever port you set).
+This builds and minifies your code into the `client/dist/` directory.
 
 ---
 
-## 🔐 Environment Variables
-
-Create a `.env` file in the root directory with the following variables:
-
-```env
-PORT=3000
-MONGO_URI=your_mongodb_connection_string
-```
-
-> ⚠️ Never commit your `.env` file. Add it to `.gitignore`.  
-> Use `.env.example` as a safe reference template for other developers.
-
----
-
-## 📁 Project Structure
-
-```
-Backend-Project-TODOAPP/
-├── config/
-│   └── db.js              # MongoDB connection setup
-├── controllers/
-│   └── todo.controller.js # Business logic for todo routes
-├── models/
-│   └── todo.model.js      # Mongoose schema/model for Todo
-├── routes/
-│   └── todo.routes.js     # Express route definitions
-├── .env                   # Environment variables (do NOT commit)
-├── .env.example           # Safe template for env variables
-├── .gitignore
-├── index.js               # App entry point
-├── package.json
-└── README.md
-```
-
----
-
-## 📡 API Endpoints
-
-Base URL: `http://localhost:3000`
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/todos` | Get all todo items |
-| `GET` | `/todos/:id` | Get a single todo by ID |
-| `POST` | `/todos` | Create a new todo |
-| `PUT` | `/todos/:id` | Update an existing todo by ID |
-| `DELETE` | `/todos/:id` | Delete a todo by ID |
-
-### Example Request & Response
-
-**POST** `/todos`
-
-Request body:
-```json
-{
-  "title": "Buy groceries",
-  "completed": false
-}
-```
-
-Response:
-```json
-{
-  "_id": "64f1a2b3c4d5e6f7a8b9c0d1",
-  "title": "Buy groceries",
-  "completed": false,
-  "createdAt": "2025-05-10T10:00:00.000Z"
-}
-```
-
----
-
-## 🧪 Testing the API
-
-You can test the API using:
-
-- [Postman](https://www.postman.com/)
-- [Thunder Client](https://www.thunderclient.com/) (VS Code extension)
-- [curl](https://curl.se/) from the terminal
-
-Example with curl:
-```bash
-# Get all todos
-curl http://localhost:3000/todos
-
-# Create a todo
-curl -X POST http://localhost:3000/todos \
-  -H "Content-Type: application/json" \
-  -d '{"title": "Learn Node.js", "completed": false}'
-```
-
----
-
-## 🔧 Known Issues / Future Improvements
-
-- [ ] Add user authentication (JWT)
-- [ ] Add input validation (e.g., express-validator or Zod)
-- [ ] Write unit and integration tests (Jest / Supertest)
-- [ ] Add pagination for the GET all todos endpoint
-- [ ] Dockerize the application
-
----
-
-## 👨‍💻 Author
-
-**SAman-9814**  
-GitHub: [@SAman-9814](https://github.com/SAman-9814)
-
----
-
-## 📄 License
-
-This project is licensed under the **ISC License**.
+## 💙 Author
+Crafted by **Aman Sah** with pair-programming assistance from Antigravity AI.
