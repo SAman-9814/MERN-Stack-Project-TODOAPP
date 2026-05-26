@@ -30,3 +30,5 @@ dbConnect();
 app.get("/", (req, res) => {
     res.send(`<h1>This is Aman Sah</h1>`);
 })
+
+module.exports = app;
